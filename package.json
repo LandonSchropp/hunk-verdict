@@ -1,6 +1,6 @@
 {
   "name": "hunk-verdict",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Approve or deny a diff from inside Hunk, and hand the decision to a listening agent",
   "author": "Landon Schropp <schroppl@gmail.com>",
   "repository": "https://github.com/LandonSchropp/hunk-verdict",

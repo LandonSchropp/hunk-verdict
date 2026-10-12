@@ -102,10 +102,11 @@ function registerWithFakeHunk(listeners: number) {
     paneControls,
     keyboardModes,
     root,
+    modes,
 
-    /** Press the review key, then mount the helper pane it opens. */
+    /** Press the verdict key, then mount the helper pane it opens. */
     open: () => {
-      commands.get("review")!({
+      commands.get("open")!({
         panes: paneControls,
         keyboardModes,
       } as unknown as ExtensionCommandContext);
@@ -136,6 +137,10 @@ describe("registerModal", () => {
     hunk = registerWithFakeHunk(1);
   });
 
+  it("labels the status bar Verdict", () => {
+    expect(hunk.modes[0]!.title).toStartWith("Verdict — ");
+  });
+
   describe("when the reviewer opens the modal", () => {
     beforeEach(() => {
       hunk.open();
@@ -146,7 +151,7 @@ describe("registerModal", () => {
     });
 
     it("takes over the keyboard", () => {
-      expect(hunk.keyboardModes.enterMode).toHaveBeenCalledWith("review");
+      expect(hunk.keyboardModes.enterMode).toHaveBeenCalledWith("verdict");
     });
 
     it("attaches a centered overlay to the root", () => {

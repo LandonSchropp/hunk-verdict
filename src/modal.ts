@@ -47,7 +47,7 @@ function centered(label: string) {
 }
 
 /**
- * Register the review modal. `decide` delivers a decision and returns how many listeners
+ * Register the verdict modal. `decide` delivers a decision and returns how many listeners
  * heard it.
  */
 export function registerModal(
@@ -165,7 +165,7 @@ export function registerModal(
 
   hunk.registerPane({
     id: "modal",
-    title: "Review",
+    title: "Verdict",
     placement: "bottom",
     height: { preferred: 1, min: 1, max: 1 },
     resizable: false,
@@ -178,9 +178,9 @@ export function registerModal(
   });
 
   hunk.registerKeyboardMode({
-    id: "review",
+    id: "verdict",
     title:
-      "Review — a approve · c comment · d deny · ←/→ select · enter choose",
+      "Verdict — a approve · c comment · d deny · ←/→ select · enter choose",
     onKey: (key, context) => {
       const step = { left: -1, h: -1, right: 1, l: 1, tab: 1 }[key.name ?? ""];
 
@@ -212,14 +212,14 @@ export function registerModal(
 
   hunk.registerCommand(
     {
-      id: "review",
+      id: "open",
       title: "Approve, comment on or deny the changes",
       key: "ctrl+r",
     },
     (context) => {
       selected = "comment";
       context.panes.open("modal");
-      context.keyboardModes.enterMode("review");
+      context.keyboardModes.enterMode("verdict");
     },
   );
 }

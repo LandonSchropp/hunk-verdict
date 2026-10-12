@@ -3,9 +3,9 @@
 > [!WARNING]
 > **This repository is 100% vibe coded.** The author did not read any of the code. Use it at your own risk.
 
-This is a [Hunk](https://hunk.dev/) extension that lets you approve, comment on or deny a diff from inside Hunk, and hands that decision to whatever is waiting for it, usually a coding agent.
+![The Approve, Comment and Deny modal over a diff in Hunk](screenshot.png)
 
-<!-- TODO: Add a screenshot of the modal. -->
+This is a [Hunk](https://hunk.dev/) extension that lets you approve, comment on or deny a diff from inside Hunk, and hands that decision to whatever is waiting for it, usually a coding agent.
 
 Press a key while reviewing to approve the changes, deny them, or send your comments back without deciding yet, and the decision goes straight to the agent that's listening. Hunk can stay open across rounds of changes, and every decision reaches the agent the same way.
 

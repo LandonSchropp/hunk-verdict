@@ -14,7 +14,7 @@ This is a folder extension for [Hunk](https://hunk.dev/): `package.json` lists `
 - `src/channel.ts`: The local socket each Hunk review serves decisions on, keyed by repository root.
 - `src/listen.ts`: The `hunk review listen` CLI command.
 - `src/modal.ts`: The approve/comment/deny modal.
-- `skills/hunk-review-loop/`: The agent skill the README tells people to install.
+- `skills/hunk-approve/`: The agent skill the README tells people to install.
 
 The user rejected Hunk's own extension dialogs (`context.dialogs`) for this: they can't be styled, and they carry an attribution line. Hunk's extension API has no other overlays and clips panes to their rectangle, so the modal escapes that by taking a ref from a one-row helper pane, walking up to the renderer's root, and attaching its own absolutely positioned renderables there, built from the constructors of the renderables it can reach. None of that is public API, so check it first when a Hunk upgrade breaks the modal.
 

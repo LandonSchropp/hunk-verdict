@@ -1,5 +1,5 @@
 ---
-name: hunk-review-loop
+name: hunk-approve
 description: Use when the user should review code changes in Hunk and approve or deny them, or when an approve, comment or deny decision arrives from a Hunk review.
 ---
 

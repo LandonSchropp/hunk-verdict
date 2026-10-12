@@ -19,7 +19,7 @@ hunk extension install LandonSchropp/hunk-verdict
 
 Press `ctrl+r` in any Hunk review to approve, comment on or deny the changes. Comment is selected by default, for when you have questions or notes and aren't ready to decide.
 
-To use another key, remap `hunk-verdict.review` in the `[keybindings]` table of your Hunk config. A key Hunk already uses has to be freed from its built-in command first.
+To use another key, remap `hunk-verdict.open` in the `[keybindings]` table of your Hunk config. A key Hunk already uses has to be freed from its built-in command first.
 
 ## Listening for Decisions
 

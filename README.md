@@ -3,7 +3,7 @@
 > [!WARNING]
 > **This repository is 100% vibe coded.** The author did not read any of the code. Use it at your own risk.
 
-![The Approve, Comment and Deny modal over a diff in Hunk](screenshot.png)
+![The Hunk Verdict UI](screenshot.png)
 
 This is a [Hunk](https://hunk.dev/) extension that lets you approve, comment on or deny a diff from inside Hunk, and hands that decision to whatever is waiting for it, usually a coding agent.
 

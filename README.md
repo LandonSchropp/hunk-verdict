@@ -1,4 +1,4 @@
-# Hunk Review
+# Hunk Verdict
 
 > [!WARNING]
 > **This repository is 100% vibe coded.** The author did not read any of the code. Use it at your own risk.
@@ -12,22 +12,22 @@ Press a key while reviewing to approve the changes, deny them, or send your comm
 ## Install
 
 ```sh
-hunk extension install LandonSchropp/hunk-review
+hunk extension install LandonSchropp/hunk-verdict
 ```
 
 ## Usage
 
 Press `ctrl+r` in any Hunk review to approve, comment on or deny the changes. Comment is selected by default, for when you have questions or notes and aren't ready to decide.
 
-To use another key, remap `hunk-review.review` in the `[keybindings]` table of your Hunk config. A key Hunk already uses has to be freed from its built-in command first.
+To use another key, remap `hunk-verdict.review` in the `[keybindings]` table of your Hunk config. A key Hunk already uses has to be freed from its built-in command first.
 
 ## Listening for Decisions
 
 ```sh
-hunk review listen [--repo <path>] [--session <id>]
+hunk verdict listen [--repo <path>] [--session <id>]
 ```
 
-`hunk review listen` prints each decision made in a Hunk review, one line at a time: `review-approved`, `review-commented` or `review-denied`. When the review closes, it prints `review-closed` and exits. It waits for the review to open if it isn't open yet.
+`hunk verdict listen` prints each decision made in a Hunk review, one line at a time: `review-approved`, `review-commented` or `review-denied`. When the review closes, it prints `review-closed` and exits. It waits for the review to open if it isn't open yet.
 
 It listens to the review of the repository in the current directory, or the one `--repo` names. If several reviews are open in the same repository, it asks you to pick one with `--session`, using an ID from `hunk session list`.
 
@@ -37,10 +37,10 @@ The reviewer's comments stay in Hunk. Read them from the open review with `hunk 
 
 ## Agent Skill
 
-The repository includes an agent skill, `hunk-approve`, that teaches a coding agent to run a review with Hunk. This skill is designed to work _specifically_ with Claude Code's monitor feature, and may not work with other agents.
+The repository includes an agent skill, `hunk-verdict`, that teaches a coding agent to run a review with Hunk. This skill is designed to work _specifically_ with Claude Code's monitor feature, and may not work with other agents.
 
 ```sh
-npx skills add LandonSchropp/hunk-review
+npx skills add LandonSchropp/hunk-verdict
 ```
 
 ## License

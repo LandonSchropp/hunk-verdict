@@ -37,7 +37,7 @@ The reviewer's comments stay in Hunk. Read them from the open review with `hunk 
 
 ## Agent Skill
 
-The repository includes an agent skill, `hunk-review`, that teaches a coding agent to run a review with Hunk. This skill is designed to work _specifically_ with Claude Code's monitor feature, and may not work with other agents.
+The repository includes an agent skill, `hunk-approve`, that teaches a coding agent to run a review with Hunk. This skill is designed to work _specifically_ with Claude Code's monitor feature, and may not work with other agents.
 
 ```sh
 npx skills add LandonSchropp/hunk-review

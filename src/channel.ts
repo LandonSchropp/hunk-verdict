@@ -5,7 +5,7 @@ import { dirname, join } from "node:path";
 
 /** Where the Hunk process with this ID serves its decisions. */
 export function socketPath(processId: number): string {
-  return join(tmpdir(), "hunk-review", `${processId}.sock`);
+  return join(tmpdir(), "hunk-verdict", `${processId}.sock`);
 }
 
 /** The socket one Hunk review serves its decisions on, to however many listeners connect. */

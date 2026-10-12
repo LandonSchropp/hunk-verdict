@@ -129,7 +129,7 @@ describe("listen", () => {
   describe("when asked for help", () => {
     it("prints the usage", async () => {
       await run("--help");
-      expect(stdout).toContain("Usage: hunk review listen");
+      expect(stdout).toContain("Usage: hunk verdict listen");
     });
 
     it("exits successfully", async () => {

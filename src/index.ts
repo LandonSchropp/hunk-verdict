@@ -3,7 +3,7 @@ import { listen, USAGE } from "./listen.ts";
 import { registerModal } from "./modal.ts";
 import type { HunkExtensionAPI } from "hunkdiff/extension";
 
-export default function registerHunkReview(hunk: HunkExtensionAPI) {
+export default function registerHunkVerdict(hunk: HunkExtensionAPI) {
   let channel: Channel | undefined;
 
   hunk.on("changeset_loaded", () => {
@@ -29,7 +29,7 @@ export default function registerHunkReview(hunk: HunkExtensionAPI) {
 
   hunk.registerCliCommand(
     {
-      name: "review",
+      name: "verdict",
       summary: "Listen for decisions made in a Hunk review",
       usage: USAGE,
     },

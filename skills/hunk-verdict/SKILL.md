@@ -1,11 +1,11 @@
 ---
-name: hunk-approve
+name: hunk-verdict
 description: Use when the user should review code changes in Hunk and approve or deny them, or when an approve, comment or deny decision arrives from a Hunk review.
 ---
 
-# Hunk Review Loop
+# Hunk Verdict
 
-The user reviews changes in [Hunk](https://hunk.dev/), leaves comments, and presses a key to approve, deny, or send the comments back without deciding yet. The `hunk-review` Hunk extension hands each decision to `hunk review listen`. Run `hunk review listen --help` for its options.
+The user reviews changes in [Hunk](https://hunk.dev/), leaves comments, and presses a key to approve, deny, or send the comments back without deciding yet. The `hunk-verdict` Hunk extension hands each decision to `hunk verdict listen`. Run `hunk verdict listen --help` for its options.
 
 ## Open the Review
 
@@ -22,7 +22,7 @@ Use `hunk diff --staged --watch` to review only staged changes. `--watch` keeps 
 Run the listener under a tool that turns each line a background command prints into a notification, such as Claude Code's Monitor tool, with the longest timeout it allows:
 
 ```bash
-hunk review listen --repo <directory>
+hunk verdict listen --repo <directory>
 ```
 
 Each decision arrives as its own line, `review-approved`, `review-commented` or `review-denied`, whenever the user makes it. `review-closed` means the user closed the review. Re-arm the listener whenever it expires while the review is still open.

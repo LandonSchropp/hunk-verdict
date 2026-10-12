@@ -17,7 +17,7 @@ afterEach(() => {
 
 describe("socketPath", () => {
   it("names the socket after the process", () => {
-    expect(socketPath(1234)).toBe(join(tmpdir(), "hunk-review", "1234.sock"));
+    expect(socketPath(1234)).toBe(join(tmpdir(), "hunk-verdict", "1234.sock"));
   });
 });
 

@@ -25,7 +25,7 @@ type RenderableConstructor<Built> = new (
   options: object,
 ) => Built;
 
-const CLOSE_EVENT = "hunk-review:close";
+const CLOSE_EVENT = "hunk-verdict:close";
 const CLOSE_DELAY = 150;
 const BUTTON_WIDTH = 11;
 const DECISIONS: readonly Decision[] = ["approve", "comment", "deny"];

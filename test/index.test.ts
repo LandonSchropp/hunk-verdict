@@ -1,5 +1,5 @@
 import { socketPath } from "../src/channel.ts";
-import registerHunkReview from "../src/index.ts";
+import registerHunkVerdict from "../src/index.ts";
 import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
 import type {
   ExtensionKeyboardMode,
@@ -40,7 +40,7 @@ beforeEach(() => {
     events: { on: () => undefined, emit: () => undefined },
   } as unknown as HunkExtensionAPI;
 
-  registerHunkReview(hunk);
+  registerHunkVerdict(hunk);
 });
 
 afterEach(() => {
@@ -48,7 +48,7 @@ afterEach(() => {
   rmSync(directory, { recursive: true, force: true });
 });
 
-describe("registerHunkReview", () => {
+describe("registerHunkVerdict", () => {
   describe("when no review has loaded", () => {
     beforeEach(() => {
       press("a");
@@ -139,14 +139,14 @@ describe("registerHunkReview", () => {
     });
   });
 
-  describe("when hunk review runs", () => {
+  describe("when hunk verdict runs", () => {
     let output: string;
     let result: unknown;
 
     beforeEach(async () => {
       output = "";
 
-      result = await cliCommands.get("review")!(["--help"], {
+      result = await cliCommands.get("verdict")!(["--help"], {
         cwd: directory,
         signal: new AbortController().signal,
         stdout: {
@@ -159,7 +159,7 @@ describe("registerHunkReview", () => {
     });
 
     it("runs the listen command", () => {
-      expect(output).toContain("Usage: hunk review listen");
+      expect(output).toContain("Usage: hunk verdict listen");
     });
 
     it("exits with the listen command's code", () => {

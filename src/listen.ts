@@ -9,7 +9,7 @@ const RETRY_DELAY = 500;
 
 export const USAGE = "listen [--repo <path>] [--session <id>]";
 
-const HELP = `Usage: hunk review ${USAGE}
+const HELP = `Usage: hunk verdict ${USAGE}
 
 Prints each decision made in a Hunk review, one line at a time: review-approved,
 review-commented or review-denied. Prints review-closed when the review closes,
@@ -102,7 +102,7 @@ async function waitForReview(
   return undefined;
 }
 
-/** Run `hunk review <arguments>`, returning the exit code. */
+/** Run `hunk verdict <arguments>`, returning the exit code. */
 export async function listen(
   parameters: readonly string[],
   context: ExtensionCliCommandContext,

@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "hunk-review",
+      "name": "hunk-verdict",
       "devDependencies": {
         "@types/bun": "^1.3.6",
         "@types/react": "^19",

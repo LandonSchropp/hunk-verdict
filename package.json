@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/bun": "^1.3.6",
     "@types/react": "^19",
-    "hunkdiff": "^0.22.0",
+    "hunkdiff": "^0.23.0",
     "typescript": "^5.9.3"
   }
 }

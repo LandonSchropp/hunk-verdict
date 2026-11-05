@@ -54,10 +54,9 @@ describe("registerHunkVerdict", () => {
       press("a");
     });
 
-    it("has nothing to deliver decisions to", () => {
+    it("tells the reviewer the decision is waiting", () => {
       expect(notify).toHaveBeenCalledWith(
-        "Nothing is listening for this review",
-        "warning",
+        "Nothing is listening yet, so the decision will go to the next listener",
       );
     });
   });

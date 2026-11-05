@@ -12,6 +12,7 @@ export function socketPath(processId: number): string {
 export class Channel {
   #server: Server | undefined;
   #listeners = new Set<Socket>();
+  #held: string | undefined;
 
   constructor(readonly path: string) {}
 
@@ -21,18 +22,31 @@ export class Channel {
 
     this.#server = createServer((socket) => {
       this.#listeners.add(socket);
+
+      if (this.#held) {
+        socket.write(this.#held);
+        this.#held = undefined;
+      }
+
       socket.on("close", () => this.#listeners.delete(socket));
       socket.on("error", () => socket.destroy());
     });
 
-    // A socket that can't be served leaves decisions with no listener, which the modal reports.
     this.#server.on("error", () => this.#server?.close());
     this.#server.listen(this.path);
   }
 
-  /** Send one line to every listener, returning how many were listening. */
+  /**
+   * Send one line to every listener, returning how many were listening. With nobody listening, the
+   * line is held for the next listener to connect, replacing any line held before it.
+   */
   broadcast(line: string): number {
     this.#listeners.forEach((listener) => listener.write(`${line}\n`));
+
+    if (this.#listeners.size === 0) {
+      this.#held = `${line}\n`;
+    }
+
     return this.#listeners.size;
   }
 

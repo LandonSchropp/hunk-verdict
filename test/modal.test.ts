@@ -408,10 +408,9 @@ describe("registerModal", () => {
       hunk.press("return");
     });
 
-    it("warns the reviewer", () => {
+    it("tells the reviewer the decision is waiting", () => {
       expect(hunk.notify).toHaveBeenCalledWith(
-        "Nothing is listening for this review",
-        "warning",
+        "Nothing is listening yet, so the decision will go to the next listener",
       );
     });
   });

@@ -21,8 +21,23 @@ describe("socketPath", () => {
   });
 });
 
+interface Listener {
+  socket: Socket;
+  lines: string[];
+}
+
 describe("Channel", () => {
   let channel: Channel;
+
+  /** Connect a listener that records every line it receives. */
+  async function connectListener(): Promise<Listener> {
+    const socket = createConnection(channel.path);
+    const lines: string[] = [];
+    socket.on("data", (data) => lines.push(data.toString()));
+    await new Promise((connected) => socket.once("connect", connected));
+    await Bun.sleep(20);
+    return { socket, lines };
+  }
 
   beforeEach(() => {
     channel = new Channel(join(directory, "sockets", "review.sock"));
@@ -78,6 +93,59 @@ describe("Channel", () => {
       it("stops counting it", () => {
         expect(channel.broadcast("approve")).toBe(0);
       });
+    });
+  });
+
+  describe("when a decision is made while nothing is listening", () => {
+    let next: Listener;
+
+    beforeEach(async () => {
+      channel.broadcast("deny");
+      channel.broadcast("approve");
+      next = await connectListener();
+    });
+
+    afterEach(() => {
+      next.socket.destroy();
+    });
+
+    it("sends the latest one to the next listener", () => {
+      expect(next.lines.join("")).toBe("approve\n");
+    });
+
+    describe("when another listener connects afterward", () => {
+      let later: Listener;
+
+      beforeEach(async () => {
+        later = await connectListener();
+      });
+
+      afterEach(() => {
+        later.socket.destroy();
+      });
+
+      it("doesn't send it again", () => {
+        expect(later.lines).toEqual([]);
+      });
+    });
+  });
+
+  describe("when a decision reaches a listener", () => {
+    let later: Listener;
+
+    beforeEach(async () => {
+      const first = await connectListener();
+      channel.broadcast("approve");
+      first.socket.destroy();
+      later = await connectListener();
+    });
+
+    afterEach(() => {
+      later.socket.destroy();
+    });
+
+    it("isn't sent to later listeners", () => {
+      expect(later.lines).toEqual([]);
     });
   });
 

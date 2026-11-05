@@ -199,7 +199,9 @@ export function registerModal(
       }
 
       if (decide(selected) === 0) {
-        context.notify("Nothing is listening for this review", "warning");
+        context.notify(
+          "Nothing is listening yet, so the decision will go to the next listener",
+        );
       } else {
         context.notify(NOTICES[selected]);
       }

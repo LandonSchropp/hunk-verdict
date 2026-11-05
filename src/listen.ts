@@ -13,7 +13,8 @@ const HELP = `Usage: hunk verdict ${USAGE}
 
 Prints each decision made in a Hunk review, one line at a time: review-approved,
 review-commented or review-denied. Prints review-closed when the review closes,
-then exits. Waits for the review to open if it isn't open yet.
+then exits. Waits for the review to open if it isn't open yet. A decision made
+while nothing was listening is printed first.
 
 Options:
 

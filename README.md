@@ -31,7 +31,7 @@ hunk verdict listen [--repo <path>] [--session <id>]
 
 It listens to the review of the repository in the current directory, or the one `--repo` names. If several reviews are open in the same repository, it asks you to pick one with `--session`, using an ID from `hunk session list`.
 
-Anything can listen: an agent's background command, a script, or a terminal. If you decide while nothing is listening, Hunk tells you so, and the decision goes nowhere.
+Anything can listen: an agent's background command, a script, or a terminal. If you decide while nothing is listening, Hunk holds the decision and delivers it to the next listener that connects. It holds only the latest decision, and only until Hunk closes.
 
 The reviewer's comments stay in Hunk. Read them from the open review with `hunk session comment list`.
 

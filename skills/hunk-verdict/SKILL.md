@@ -25,7 +25,7 @@ Run the listener under a tool that turns each line a background command prints i
 hunk verdict listen --repo <directory>
 ```
 
-Each decision arrives as its own line, `review-approved`, `review-commented` or `review-denied`, whenever the user makes it. `review-closed` means the user closed the review. Re-arm the listener whenever it expires while the review is still open.
+Each decision arrives as its own line, `review-approved`, `review-commented` or `review-denied`, whenever the user makes it. `review-closed` means the user closed the review. Re-arm the listener whenever it expires while the review is still open. A decision made while no listener is running is held, and the next listener prints it as soon as it connects. A later decision replaces one that's still held.
 
 If the listener says several reviews are open, pass `--session` with the ID of the one you opened: the newest in `hunk session list --json` for that repository.
 

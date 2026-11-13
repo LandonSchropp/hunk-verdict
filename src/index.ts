@@ -3,8 +3,11 @@ import { listen, USAGE } from "./listen.ts";
 import { registerModal } from "./modal.ts";
 import type { HunkExtensionAPI } from "hunkdiff/extension";
 
+let channel: Channel | undefined;
+let runs = 0;
+
 export default function registerHunkVerdict(hunk: HunkExtensionAPI) {
-  let channel: Channel | undefined;
+  runs++;
 
   hunk.on("changeset_loaded", () => {
     if (!channel) {
@@ -13,7 +16,12 @@ export default function registerHunkVerdict(hunk: HunkExtensionAPI) {
     }
   });
 
-  hunk.on("shutdown", () => channel?.close());
+  hunk.on("shutdown", () => {
+    if (--runs === 0) {
+      channel?.close();
+      channel = undefined;
+    }
+  });
 
   registerModal(
     hunk,

@@ -23,11 +23,10 @@ function press(key: string) {
   mode.onKey({ name: key }, { notify } as never);
 }
 
-beforeEach(() => {
-  directory = realpathSync(mkdtempSync(join(tmpdir(), "index-")));
+/** Run the extension's factory the way Hunk does when it loads extensions. */
+function register() {
   events = new Map();
   cliCommands = new Map();
-  notify = mock();
 
   const hunk = {
     on: (event: string, handler: Handler) => events.set(event, handler),
@@ -41,6 +40,12 @@ beforeEach(() => {
   } as unknown as HunkExtensionAPI;
 
   registerHunkVerdict(hunk);
+}
+
+beforeEach(() => {
+  directory = realpathSync(mkdtempSync(join(tmpdir(), "index-")));
+  notify = mock();
+  register();
 });
 
 afterEach(() => {
@@ -124,6 +129,55 @@ describe("registerHunkVerdict", () => {
 
     it("keeps the listeners it has", () => {
       expect(closed).toBe(false);
+    });
+  });
+
+  describe("when Hunk runs the extension again", () => {
+    let listener: Socket;
+    let received: Promise<string>;
+    let previousEvents: Map<string, Handler>;
+    let previousMode: ExtensionKeyboardMode;
+
+    beforeEach(async () => {
+      events.get("changeset_loaded")!({}, { cwd: directory });
+      listener = createConnection(socketPath(process.pid));
+      await new Promise((connected) => listener.once("connect", connected));
+      received = new Promise((resolve) =>
+        listener.once("data", (data) => resolve(data.toString())),
+      );
+      previousEvents = events;
+      previousMode = mode;
+      register();
+    });
+
+    afterEach(() => {
+      listener.destroy();
+    });
+
+    describe("when Hunk replaces the previous run", () => {
+      beforeEach(async () => {
+        previousEvents.get("shutdown")!({});
+        events.get("changeset_loaded")!({}, { cwd: directory });
+        await Bun.sleep(20);
+      });
+
+      it("keeps delivering to the listeners it has", async () => {
+        press("a");
+        expect(await received).toBe("review-approved\n");
+      });
+    });
+
+    describe("when Hunk discards the new run", () => {
+      beforeEach(() => {
+        events.get("shutdown")!({});
+        events = previousEvents;
+        mode = previousMode;
+      });
+
+      it("keeps delivering to the listeners it has", async () => {
+        press("a");
+        expect(await received).toBe("review-approved\n");
+      });
     });
   });
 
